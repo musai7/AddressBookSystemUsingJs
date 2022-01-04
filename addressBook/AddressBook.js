@@ -137,6 +137,13 @@ let addContact = (addressBookContact) => {
     return addressBookContact;
 };
 
+let deleteContact = ()=>{
+    let firstName = prompt("enter a first name to delete contact : ")
+    let index = addressBookArr.findIndex(contact => contact.getFirstName()== firstName);
+    addressBookArr.splice(index);
+    console.log(addressBookArr.toString());
+}
+
 let editContct = ()=>{
     let firstName = prompt("enter a first name to edit contact : ")
     let addressBookContact = new AddressBookContact();
@@ -152,18 +159,24 @@ let editContct = ()=>{
 let addressBookArr = new Array();
 try {
     let addressBookContact = new AddressBookContact();
-    let input =0
-    while(input != 3){
-        input = prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for exit \n');
-        if(input == 1){
-            let contact = addContact(addressBookContact)
-            addressBookArr.push(contact);
-            console.log(contact.toString());
-        }else if(input == 2){
-            editContct();
+    let exit =true
+    while(exit){
+        let input = parseInt(prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for delete contact \n 4.for exit \n'));
+        switch(input){
+            case 1:
+                let contact = addContact(addressBookContact)
+                addressBookArr.push(contact);
+                console.log(contact.toString());
+                break;
+            case 2:
+                editContct();
+                break;
+            case 3:
+                deleteContact();
+                break;
+            case 4:
+                exit = false;      
         }
-        else
-            break;
     }
 } catch (err) {
     console.error(err);

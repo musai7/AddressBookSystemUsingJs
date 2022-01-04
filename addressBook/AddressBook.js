@@ -8,15 +8,8 @@ class AddressBookContact{
     phoneNumber;
     email;
 
-    constructor(...params){
-        this.firstName = params[0];
-        this.lastName = params[1];
-        this.address = params[2];
-        this.city = params[3];
-        this.state = params[4];
-        this.zip = params[5];
-        this.phoneNumber = params[6];
-        this.email = params[7];
+    constructor(){
+
     }
 
     setFirstName(firstName){
@@ -129,6 +122,33 @@ class AddressBookContact{
                 ", zip = " + this.zip + ", phoneNumber = " + this.phoneNumber + ", email = " +this.email;
     }
 }
+const ps = require('prompt-sync');
+const prompt = ps();
+let addContact = (addressBookContact) => {
 
-let addressBookContact = new AddressBookContact("Musai","Borra","gopalapuram","ravulapalem","andhra","533 274","8463985868","musai307@gmail.com");
-console.log(addressBookContact.toString());
+    addressBookContact.setFirstName(prompt('enter first name : '));
+    addressBookContact.setLastName(prompt('enter last name : '));
+    addressBookContact.setAddress(prompt('enter address : '));
+    addressBookContact.setCity(prompt('enter city name : '));
+    addressBookContact.setState(prompt('enter state name : '));
+    addressBookContact.setZip(prompt('enter zip : '));
+    addressBookContact.setPhoneNumber(prompt('enter phone number : '));
+    addressBookContact.setEmail(prompt('enter email : '));
+    return addressBookContact;
+};
+
+let addressBookArr = [];
+try {
+    let addressBookContact = new AddressBookContact();
+    let input =0
+    while(input != 2){
+        input = prompt('enter \n 1.for add contact \n 2.for exit');
+        if(input == 1){
+            addressBookArr.push(addContact(addressBookContact));
+        }else
+            break;
+    }
+} catch (err) {
+    console.error(err);
+}
+console.log(addressBookArr.toString());

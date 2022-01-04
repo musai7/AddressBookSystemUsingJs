@@ -137,15 +137,32 @@ let addContact = (addressBookContact) => {
     return addressBookContact;
 };
 
-let addressBookArr = [];
+let editContct = ()=>{
+    let firstName = prompt("enter a first name to edit contact : ")
+    let addressBookContact = new AddressBookContact();
+    for(i = 0;i < addressBookArr.length;i++){
+       if(addressBookArr[i].getFirstName()==firstName){
+            let contact = addContact(addressBookContact)
+            addressBookArr[i] = contact;
+            console.log(contact.toString());
+       }
+    }
+}
+
+let addressBookArr = new Array();
 try {
     let addressBookContact = new AddressBookContact();
     let input =0
-    while(input != 2){
-        input = prompt('enter \n 1.for add contact \n 2.for exit');
+    while(input != 3){
+        input = prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for exit \n');
         if(input == 1){
-            addressBookArr.push(addContact(addressBookContact));
-        }else
+            let contact = addContact(addressBookContact)
+            addressBookArr.push(contact);
+            console.log(contact.toString());
+        }else if(input == 2){
+            editContct();
+        }
+        else
             break;
     }
 } catch (err) {

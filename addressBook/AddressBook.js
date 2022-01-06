@@ -164,6 +164,14 @@ function countContacts (count,contact){
     return count;
 }
 
+let checkUniqueContact = ()=>{
+    let firstName = prompt("enter a first name to check uniquee contact : ");
+    let count =0;
+    count = addressBookArr.filter(contact => contact.getFirstName()==firstName)
+                  .reduce(countContacts,0)
+    return count;
+}
+
 let printContacts = () =>{
     addressBookArr.forEach(contact =>{
         console.log(contact.toString());

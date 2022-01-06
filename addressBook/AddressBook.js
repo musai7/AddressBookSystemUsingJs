@@ -124,8 +124,9 @@ class AddressBookContact{
 }
 const ps = require('prompt-sync');
 const prompt = ps();
-let addContact = (addressBookContact) => {
+let addContact = () => {
 
+    let addressBookContact = new AddressBookContact();
     addressBookContact.setFirstName(prompt('enter first name : '));
     addressBookContact.setLastName(prompt('enter last name : '));
     addressBookContact.setAddress(prompt('enter address : '));
@@ -156,16 +157,36 @@ let editContct = ()=>{
     }
 }
 
+function countContacts (count,contact){
+    if(contact != null){
+        return count+1;    
+    }
+    return count;
+}
+
+let printContacts = () =>{
+    addressBookArr.forEach(contact =>{
+        console.log(contact.toString());
+    })
+}
+
 let addressBookArr = new Array();
 try {
-    let addressBookContact = new AddressBookContact();
     let exit =true
     while(exit){
-        let input = parseInt(prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for delete contact \n 4.for exit \n'));
+        let input = parseInt(prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for delete contact \n 4.for count contacts \n 5.for print contacts \n 6.for exit \n'));
         switch(input){
             case 1:
-                let contact = addContact(addressBookContact)
-                addressBookArr.push(contact);
+                let check = checkUniqueContact();
+                let contact;
+               
+                if(check == 1){
+                    console.log("contact with first name already exists");
+                    break;
+                }else{
+                    contact = addContact();
+                    addressBookArr.push(contact);
+                }
                 console.log(contact.toString());
                 break;
             case 2:
@@ -175,10 +196,16 @@ try {
                 deleteContact();
                 break;
             case 4:
+                let count = addressBookArr.reduce(countContacts,0);
+                console.log(count);
+                break;
+            case 5:
+                printContacts();
+                break;
+            case 6:
                 exit = false;      
         }
     }
 } catch (err) {
     console.error(err);
 }
-console.log(addressBookArr.toString());

@@ -200,18 +200,53 @@ let searchByCityOrState = () => {
     count = addressBookArr.filter(contact => contact.getState()==stateName)
                   .reduce(searchPersonBycityOrState,0)
     }
-    
     console.log("no of persoon by city name : " + count);
 }
 
-let sortEntries = () =>{
-        addressBookArr.sort((contact1,contact2)=> {
-            if(contact1.getFirstName()>contact2.getFirstName()){
-                return 1;
-            }else{
-                return -1;
-            }
-        });
+
+let sortEntries = (condition) =>{
+        let key = parseInt(prompt("to sort elements enter \n 1.using first name \n 2.using city \n 3. using state"+
+                                    " \n 4.using zip \n"));
+        switch (key) {
+            case 1:
+                addressBookArr.sort((contact1,contact2)=> {
+                    if(contact1.getFirstName()>contact2.getFirstName()){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                });                break;
+            case 2:
+                addressBookArr.sort((contact1,contact2)=> {
+                    if(contact1.getCity()>contact2.getCity()){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                });                break;
+            case 3:
+                addressBookArr.sort((contact1,contact2)=> {
+                    if(contact1.getState()>contact2.getState()){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                });
+                break;
+            case 4:
+                addressBookArr.sort((contact1,contact2)=> {
+                    if(contact1.getZip()>contact2.getZip()){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                });
+                break;
+            default:
+                console.log("enter valid case");
+                break;
+        }
+        printContacts();
 }
 
 let addressBookArr = new Array();

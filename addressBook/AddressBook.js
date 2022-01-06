@@ -178,11 +178,28 @@ let printContacts = () =>{
     })
 }
 
+let searchPersonBycityOrState = (count, contact) => {
+
+    if(contact != null){
+        console.log(contact.getFirstName());
+        return count+1;    
+    }
+    return count;
+}
+
+let searchByCityOrState = () => {
+    let cityName = prompt("enter city name : ");
+    count = addressBookArr.filter(contact => contact.getCity()==cityName)
+                  .reduce(searchPersonBycityOrState,0)
+    console.log("no of persoon by city name : " + count);
+}
+
 let addressBookArr = new Array();
 try {
     let exit =true
     while(exit){
-        let input = parseInt(prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for delete contact \n 4.for count contacts \n 5.for print contacts \n 6.for exit \n'));
+        let input = parseInt(prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for delete contact \n 4.for count contacts \n '+
+        '\n 6.search by city or state name \n 5.for print contacts \n 7.for exit \n'));
         switch(input){
             case 1:
                 let check = checkUniqueContact();
@@ -211,6 +228,9 @@ try {
                 printContacts();
                 break;
             case 6:
+                searchByCityOrState();
+                break;
+            case 7:
                 exit = false;      
         }
     }

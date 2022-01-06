@@ -204,12 +204,22 @@ let searchByCityOrState = () => {
     console.log("no of persoon by city name : " + count);
 }
 
+let sortEntries = () =>{
+        addressBookArr.sort((contact1,contact2)=> {
+            if(contact1.getFirstName()>contact2.getFirstName()){
+                return 1;
+            }else{
+                return -1;
+            }
+        });
+}
+
 let addressBookArr = new Array();
 try {
     let exit =true
     while(exit){
         let input = parseInt(prompt('enter \n 1.for add contact \n 2.for edit contact \n 3.for delete contact \n 4.for count contacts \n '+
-        '\n 6.search by city or state name \n 5.for print contacts \n 7.for exit \n'));
+        ' 5.for print contacts \n 6.search by city or state name \n 7. to sort entries \n 8.for exit \n'));
         switch(input){
             case 1:
                 let check = checkUniqueContact();
@@ -241,6 +251,9 @@ try {
                 searchByCityOrState();
                 break;
             case 7:
+                sortEntries();
+                break;
+            case 8:
                 exit = false;      
         }
     }

@@ -179,7 +179,7 @@ let printContacts = () =>{
 }
 
 let searchPersonBycityOrState = (count, contact) => {
-
+    
     if(contact != null){
         console.log(contact.getFirstName());
         return count+1;    
@@ -188,9 +188,19 @@ let searchPersonBycityOrState = (count, contact) => {
 }
 
 let searchByCityOrState = () => {
-    let cityName = prompt("enter city name : ");
-    count = addressBookArr.filter(contact => contact.getCity()==cityName)
+    let check = parseInt(prompt("enter 1 for search person by city or 2 for by state : "));
+    if(check == 1){
+        let cityName = prompt("enter city name : ");
+        console.log("city name " + cityName)
+        count = addressBookArr.filter(contact => contact.getCity()==cityName)
+                              .reduce(searchPersonBycityOrState,0)  
+    }if(check == 2){
+        let stateName = prompt("enter city name : ");
+        console.log("state name " + stateName)
+    count = addressBookArr.filter(contact => contact.getState()==stateName)
                   .reduce(searchPersonBycityOrState,0)
+    }
+    
     console.log("no of persoon by city name : " + count);
 }
 
